@@ -39,6 +39,11 @@ class Flat(models.Model):
         blank=True,
         db_index=True)
 
+    new_building = models.BooleanField(
+        'Новостройка или нет',
+        null=True,
+        help_text='Да — новостройка, Нет — старое здание, Неизвестно — не заполнено.')
+
     has_balcony = models.NullBooleanField('Наличие балкона', db_index=True)
     active = models.BooleanField('Активно-ли объявление', db_index=True)
     construction_year = models.IntegerField(
