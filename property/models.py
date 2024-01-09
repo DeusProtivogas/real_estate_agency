@@ -1,3 +1,4 @@
+import phonenumbers
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -64,6 +65,7 @@ class Flat(models.Model):
 
     owner_pure_phone = PhoneNumberField(
         blank=True,
+        null=True,
     )
 
 
@@ -90,4 +92,20 @@ class Complaint(models.Model):
     def __str__(self):
         return f"{self.user}, {self.flat}"
 
+class Owner(models.Model):
+    name = models.CharField(
+        max_length=20,
+        verbose_name="ФИО владельца",
+    )
+    phone_number = models.CharField('Номер владельца', max_length=20)
+    phone_number_pure = PhoneNumberField(
+        verbose_name="Нормализованный номер владельца",
+        blank=True,
+        null=True,
+    )
+    flats = models.ManyToManyField(
+        User,
+        related_name="owned_flats",
+        blank=True,
+    )
 
