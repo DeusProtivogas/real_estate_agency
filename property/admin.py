@@ -3,9 +3,11 @@ from property.models import Flat
 
 from .models import Flat, Complaint, Owner
 
+
 class OwnersInline(admin.TabularInline):
     model = Owner.flats.through
     raw_id_fields = ["owner"]
+
 
 class FlatAdmin(admin.ModelAdmin):
     search_fields = ["town", "owner", "address"]
@@ -18,8 +20,10 @@ class FlatAdmin(admin.ModelAdmin):
         OwnersInline,
     ]
 
+
 class ComplaintAdmin(admin.ModelAdmin):
     raw_id_fields = ("flat", )
+
 
 class OwnerAdmin(admin.ModelAdmin):
     raw_id_fields = ("flats", )
