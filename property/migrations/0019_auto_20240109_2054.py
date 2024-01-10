@@ -5,8 +5,8 @@ from django.db import migrations, transaction
 
 def fill_owner(apps, schema_editor):
     Owner = apps.get_model("property", "Owner")
-    flats = apps.get_model('property', 'Flat')
-    for flat in flats.objects.all():
+    Flat = apps.get_model('property', 'Flat')
+    for flat in Flat.objects.all():
         with transaction.atomic():
             owner, created = Owner.objects.get_or_create(
                 name=flat.owner,

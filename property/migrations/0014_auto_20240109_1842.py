@@ -4,8 +4,8 @@ import phonenumbers
 from django.db import migrations, transaction
 
 def change_phone(apps, schema_editor):
-    flats = apps.get_model('property', 'Flat')
-    for flat in flats.objects.all():
+    Flat = apps.get_model('property', 'Flat')
+    for flat in Flat.objects.all():
         phone_number = phonenumbers.parse(
                 flat.owners_phonenumber,
                 "RU"
@@ -25,8 +25,8 @@ def change_phone(apps, schema_editor):
 
 
 def change_phone_back(apps, schema_editor):
-    flats = apps.get_model('property', 'Flat')
-    for flat in flats.objects.all():
+    Flat = apps.get_model('property', 'Flat')
+    for flat in Flat.objects.all():
         pass
 
 class Migration(migrations.Migration):
