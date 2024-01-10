@@ -5,23 +5,19 @@ from django.db import migrations, transaction
 
 def change_phone(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
+    for flat in Flat.objects.all().iterator():
         phone_number = phonenumbers.parse(
                 flat.owners_phonenumber,
                 "RU"
             )
+        flat.owner_pure_phone = None
         if phonenumbers.is_valid_number(phone_number):
-            with transaction.atomic():
-                flat.owner_pure_phone = phonenumbers.format_number(
-                    phone_number,
-                    phonenumbers.PhoneNumberFormat.INTERNATIONAL
-                )
-                flat.save()
+            flat.owner_pure_phone = phonenumbers.format_number(
+                phone_number,
+                phonenumbers.PhoneNumberFormat.INTERNATIONAL
+            )
+        flat.save()
 
-        else:
-            with transaction.atomic():
-                flat.owner_pure_phone = None
-                flat.save()
 
 
 def change_phone_back(apps, schema_editor):
