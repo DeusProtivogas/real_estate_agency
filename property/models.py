@@ -39,7 +39,7 @@ class Flat(models.Model):
         'Количество комнат в квартире',
         db_index=True)
     living_area = models.IntegerField(
-        'количество жилых кв.метров',
+        'Количество жилых кв.метров',
         null=True,
         blank=True,
         db_index=True)
@@ -59,7 +59,8 @@ class Flat(models.Model):
 
     liked_by = models.ManyToManyField(
         User,
-        related_name="liked_posts",
+        verbose_name="понравившиеся квартиры",
+        related_name="liked_flats",
         blank=True,
     )
 
@@ -106,7 +107,8 @@ class Owner(models.Model):
     )
     flats = models.ManyToManyField(
         Flat,
-        related_name="owned_flats",
+        verbose_name="Квартиры",
+        related_name="owner_of_flat",
         blank=True,
     )
 
